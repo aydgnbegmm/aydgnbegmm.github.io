@@ -1,0 +1,563 @@
+<!doctype html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Begüm Aydoğan Çiçin — Mekatronik Mühendisi</title>
+<meta name="description" content="Gömülü yazılım, otonom İHA sistemleri ve görüntü işleme üzerine çalışan Mekatronik Mühendisi. TEKNOFEST ve METU VTOL birincisi. Kendi dronu Hedwig'in tasarımcısı.">
+<meta property="og:title" content="Begüm Aydoğan Çiçin — Mekatronik Mühendisi">
+<meta property="og:description" content="Otonom sistemler, İHA tasarımı, gömülü yazılım ve görüntü işleme.">
+<meta property="og:image" content="assets/images/begum_hero.jpg">
+<link rel="icon" href="assets/images/begum_hero.jpg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;1,9..144,400;1,9..144,500&family=Inter+Tight:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#f4f2ee; --bg2:#ebe8e2; --ink:#16181b; --mute:#5d6168; --line:#d9d5cc;
+  --card:#fbfaf7; --accent:#c8481b; --accent-ink:#fff; --glow:rgba(200,72,27,.14);
+  --serif:'Fraunces',Georgia,serif; --sans:'Inter Tight',system-ui,sans-serif; --mono:'JetBrains Mono',ui-monospace,monospace;
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){--bg:#0e1012;--bg2:#15181b;--ink:#ecebe7;--mute:#9aa0a7;--line:#262a2f;--card:#14171a;--accent:#ff7a45;--accent-ink:#111;--glow:rgba(255,122,69,.16)}
+}
+:root[data-theme="dark"]{--bg:#0e1012;--bg2:#15181b;--ink:#ecebe7;--mute:#9aa0a7;--line:#262a2f;--card:#14171a;--accent:#ff7a45;--accent-ink:#111;--glow:rgba(255,122,69,.16)}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;scroll-padding-top:72px}
+body{background:var(--bg);color:var(--ink);font-family:var(--sans);font-size:17px;line-height:1.6;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+a{color:inherit;text-decoration:none}
+img{max-width:100%;display:block}
+.wrap{max-width:1080px;margin:0 auto;padding:0 20px}
+.mono{font-family:var(--mono);font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--mute)}
+
+/* ---------- animated icons ---------- */
+.ico{width:56px;height:56px;color:var(--accent);flex:none;overflow:visible}
+.ico.sm{width:40px;height:40px}
+.ico .fill-bg{fill:var(--card)}
+.sp{transform-box:fill-box;transform-origin:center;animation:spin 1.1s linear infinite}
+.sp.rev{animation-direction:reverse}
+.gear-rot{transform-box:fill-box;transform-origin:center;animation:spin 9s linear infinite}
+.gear-rot.rev{animation-direction:reverse}
+.sweep{transform-box:view-box;transform-origin:32px 32px;animation:spin 3.2s linear infinite}
+.blip{animation:blip 3.2s ease-out infinite}
+.pin{animation:pin 1.8s ease-in-out infinite}
+.pin:nth-child(2n){animation-delay:.45s}.pin:nth-child(3n){animation-delay:.9s}
+.scan{animation:scan 2.4s ease-in-out infinite alternate}
+.tw{transform-box:fill-box;transform-origin:center;animation:tw 2.2s ease-in-out infinite}
+.bob{animation:bob 3.6s ease-in-out infinite}
+.card:hover .sp,.hedwig:hover .sp{animation-duration:.35s}
+.card:hover .gear-rot{animation-duration:3s}
+@keyframes spin{to{transform:rotate(360deg)}}
+@keyframes blip{0%,55%{opacity:0;transform:scale(.4)}60%{opacity:1;transform:scale(1)}100%{opacity:0;transform:scale(1.6)}}
+@keyframes pin{0%,100%{opacity:.25}50%{opacity:1}}
+@keyframes scan{from{transform:translateY(-10px)}to{transform:translateY(10px)}}
+@keyframes tw{0%,100%{opacity:.2;transform:scale(.6) rotate(0)}50%{opacity:1;transform:scale(1.2) rotate(45deg)}}
+@keyframes bob{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}
+@media(prefers-reduced-motion:reduce){.sp,.gear-rot,.sweep,.blip,.pin,.scan,.tw,.bob{animation:none!important}}
+
+/* ---------- nav ---------- */
+header{position:sticky;top:0;z-index:20;background:color-mix(in srgb,var(--bg) 85%,transparent);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+nav{display:flex;align-items:center;justify-content:space-between;height:60px;gap:16px;position:relative}
+.logo{font-family:var(--serif);font-weight:600;font-size:20px;white-space:nowrap;display:flex;align-items:center;gap:8px}
+.logo svg{width:26px;height:26px}
+.logo span{color:var(--accent)}
+.links{display:flex;gap:22px;font-size:14px;color:var(--mute)}
+.links a{white-space:nowrap;padding:4px 0;border-bottom:1px solid transparent}
+.links a:hover{color:var(--ink);border-color:var(--accent)}
+.right{display:flex;gap:10px;align-items:center}
+.btn{display:inline-flex;align-items:center;gap:8px;border:1px solid var(--ink);padding:9px 16px;border-radius:999px;font-size:14px;font-weight:500;cursor:pointer;background:transparent;color:var(--ink);transition:.2s;font-family:inherit}
+.btn:hover{background:var(--ink);color:var(--bg)}
+.btn.solid{background:var(--accent);border-color:var(--accent);color:var(--accent-ink)}
+.btn.solid:hover{filter:brightness(1.08);background:var(--accent);color:var(--accent-ink)}
+.icon{width:38px;height:38px;padding:0;justify-content:center;border-color:var(--line)}
+#burger{display:none}
+@media(max-width:860px){
+  #burger{display:inline-flex}
+  .links{display:none;position:absolute;top:60px;left:-20px;right:-20px;flex-direction:column;gap:0;background:var(--bg);border-bottom:1px solid var(--line);padding:8px 20px 16px}
+  .links.open{display:flex}
+  .links a{padding:12px 0;border-bottom:1px solid var(--line)}
+  .right .solid{display:none}
+}
+
+/* ---------- hero ---------- */
+.hero{padding:72px 0 48px;display:grid;grid-template-columns:1.35fr 1fr;gap:48px;align-items:center}
+@media(max-width:900px){.hero{grid-template-columns:1fr;gap:36px}}
+.hero .mono{display:flex;align-items:center;gap:10px;margin-bottom:26px}
+.dot{width:8px;height:8px;border-radius:50%;background:#3fb950;box-shadow:0 0 0 4px rgba(63,185,80,.18);animation:pin 1.8s infinite}
+h1{font-family:var(--serif);font-weight:400;font-size:clamp(36px,6vw,70px);line-height:1.05;letter-spacing:-.02em}
+h1 em{font-style:italic;color:var(--accent);font-weight:500}
+.lead{max-width:58ch;margin-top:26px;color:var(--mute);font-size:18px}
+.lead b{color:var(--ink);font-weight:500}
+.cta{display:flex;flex-wrap:wrap;gap:12px;margin-top:30px}
+.portrait{position:relative;aspect-ratio:4/5;border-radius:28px;background:var(--bg2);border:1px solid var(--line);overflow:hidden;display:grid;place-items:center;box-shadow:0 12px 36px var(--glow)}
+.portrait img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center 15%;z-index:2}
+.portrait .fallback{position:relative;z-index:1;font-family:var(--serif);font-size:120px;color:var(--accent);opacity:.5}
+.float-ico{position:absolute;right:-8px;bottom:-8px;background:var(--bg);border:1px solid var(--line);border-radius:22px 0 22px 0;padding:14px;z-index:3}
+.pwrap{position:relative}
+.stats{grid-column:1/-1;display:grid;grid-template-columns:repeat(4,1fr);border-top:1px solid var(--line);margin-top:8px}
+.stat{padding:26px 20px 8px 0}
+.stat+.stat{padding-left:20px;border-left:1px solid var(--line)}
+.stat strong{font-family:var(--serif);font-weight:400;font-size:clamp(34px,5vw,56px);line-height:1;display:block}
+.stat span{display:block;margin-top:10px;font-size:14px;color:var(--mute);max-width:22ch}
+@media(max-width:720px){.stats{grid-template-columns:1fr 1fr}.stat:nth-child(3){border-left:0;padding-left:0}.stat:nth-child(n+3){border-top:1px solid var(--line);margin-top:16px;padding-top:26px}}
+
+/* ---------- sections ---------- */
+section{padding:84px 0 20px}
+.sec-head{display:flex;justify-content:space-between;align-items:end;gap:20px;margin-bottom:34px;flex-wrap:wrap}
+h2{font-family:var(--serif);font-weight:400;font-size:clamp(30px,4.5vw,48px);letter-spacing:-.015em;line-height:1.1}
+.sec-head p{color:var(--mute);max-width:38ch;font-size:15px}
+
+.grid{display:grid;grid-template-columns:repeat(12,1fr);gap:18px}
+.card{grid-column:span 6;background:var(--card);border:1px solid var(--line);border-radius:18px;padding:28px;display:flex;flex-direction:column;gap:14px;transition:transform .25s,border-color .25s,box-shadow .25s}
+.card:hover{transform:translateY(-3px);border-color:var(--accent);box-shadow:0 14px 40px var(--glow)}
+.card.wide{grid-column:span 12}
+.card.third{grid-column:span 4}
+@media(max-width:900px){.card,.card.third{grid-column:span 12}}
+.ctop{display:flex;justify-content:space-between;align-items:flex-start;gap:12px}
+.tag{display:flex;gap:8px;flex-wrap:wrap}
+.pill{font-family:var(--mono);font-size:11px;letter-spacing:.04em;padding:4px 10px;border-radius:999px;border:1px solid var(--line);color:var(--mute)}
+.pill.hot{background:var(--accent);border-color:var(--accent);color:var(--accent-ink)}
+h3{font-family:var(--serif);font-weight:500;font-size:24px;line-height:1.2}
+.card p{color:var(--mute);font-size:16px}
+.card p b,.hedwig p b{color:var(--ink);font-weight:500}
+.stack{font-family:var(--mono);font-size:12px;color:var(--mute);margin-top:auto;padding-top:10px;border-top:1px dashed var(--line)}
+.ph{margin:4px 0 0;border-radius:12px;overflow:hidden;border:1px solid var(--line);background:var(--bg2)}
+.ph img{width:100%;max-height:340px;object-fit:cover}
+.ph figcaption{font-family:var(--mono);font-size:11px;color:var(--mute);padding:8px 12px;border-top:1px solid var(--line)}
+
+/* ---------- hedwig ---------- */
+.hedwig{background:linear-gradient(160deg,var(--card),var(--bg2));border:1px solid var(--line);border-radius:28px;padding:clamp(24px,4vw,48px);position:relative;overflow:hidden}
+.hedwig::before{content:"";position:absolute;inset:0;background:radial-gradient(circle at 85% 0%,var(--glow),transparent 55%);pointer-events:none}
+.hhead{display:grid;grid-template-columns:auto 1fr;gap:28px;align-items:center;position:relative}
+@media(max-width:700px){.hhead{grid-template-columns:1fr}}
+.bigdrone{width:150px;height:150px;color:var(--accent)}
+.hedwig h3{font-size:clamp(30px,4.5vw,46px);margin-top:6px}
+.hedwig p{color:var(--mute);margin-top:16px;max-width:75ch;position:relative}
+.hphotos{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin:28px 0;position:relative}
+@media(max-width:700px){.hphotos{grid-template-columns:1fr}}
+.hphotos .ph img{height:260px;max-height:none}
+.hud{display:grid;grid-template-columns:repeat(4,1fr);border:1px solid var(--line);border-radius:16px;background:var(--bg);position:relative}
+.hud div{padding:18px 20px}
+.hud div+div{border-left:1px solid var(--line)}
+.hud small{display:block;font-family:var(--mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--mute)}
+.hud strong{font-family:var(--serif);font-weight:500;font-size:24px;color:var(--accent)}
+@media(max-width:700px){.hud{grid-template-columns:1fr 1fr}.hud div:nth-child(3){border-left:0}.hud div:nth-child(n+3){border-top:1px solid var(--line)}}
+.mods{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:20px;position:relative}
+@media(max-width:700px){.mods{grid-template-columns:1fr}}
+.mod{background:var(--bg);border:1px solid var(--line);border-radius:12px;padding:14px 16px;display:flex;gap:12px;align-items:flex-start}
+.mod b{display:block;font-size:15px;font-weight:600}
+.mod span{display:block;font-size:13.5px;color:var(--mute);line-height:1.45;margin-top:2px}
+.mod i{font-style:normal;font-family:var(--mono);font-size:11px;color:var(--accent);margin-top:3px}
+
+/* ---------- competitions ---------- */
+.comp{display:grid;grid-template-columns:130px 1fr auto;gap:20px;padding:22px 0;border-top:1px solid var(--line);align-items:baseline}
+.comp:last-child{border-bottom:1px solid var(--line)}
+.comp .y{font-family:var(--mono);font-size:13px;color:var(--mute)}
+.comp h3{font-size:21px}
+.comp p{color:var(--mute);font-size:15px;margin-top:4px}
+.res{font-weight:600;font-size:14px;color:var(--accent);white-space:nowrap;display:inline-flex;align-items:center;gap:8px}
+.res svg{width:22px;height:22px}
+@media(max-width:700px){.comp{grid-template-columns:1fr;gap:6px}}
+
+/* ---------- timeline ---------- */
+.tl{list-style:none}
+.tl li{display:grid;grid-template-columns:150px 1fr;gap:20px;padding:22px 0;border-top:1px solid var(--line)}
+.tl li:last-child{border-bottom:1px solid var(--line)}
+.tl .when{font-family:var(--mono);font-size:13px;color:var(--mute)}
+.tl h3{font-size:20px}
+.tl .where{color:var(--accent);font-size:14px;margin-left:8px;font-family:var(--sans)}
+.tl p{color:var(--mute);font-size:15px;margin-top:6px;max-width:68ch}
+@media(max-width:700px){.tl li{grid-template-columns:1fr;gap:4px}}
+
+/* ---------- skills ---------- */
+.skills{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+@media(max-width:900px){.skills{grid-template-columns:1fr}}
+.skills>div{background:var(--bg2);border-radius:18px;padding:24px}
+.skills h4{font-family:var(--mono);font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--mute);margin-bottom:14px;font-weight:500}
+.skills ul{list-style:none;display:flex;flex-wrap:wrap;gap:8px}
+.skills li{padding:6px 12px;border-radius:999px;background:var(--card);border:1px solid var(--line);font-size:14px;transition:.2s}
+.skills li:hover{border-color:var(--accent);transform:translateY(-2px)}
+
+/* ---------- certs ---------- */
+.certs{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:18px}
+.cert{background:var(--card);border:1px solid var(--line);border-radius:16px;overflow:hidden;transition:.25s}
+.cert:hover{border-color:var(--accent);transform:translateY(-3px)}
+.cert .im{aspect-ratio:4/3;background:var(--bg2);display:grid;place-items:center;padding:10px;border-bottom:1px solid var(--line)}
+.cert img{width:100%;height:100%;object-fit:contain;border-radius:4px}
+.cert div.t{padding:14px 16px}
+.cert h4{font-size:15px;font-weight:600;font-family:var(--sans)}
+.cert p{font-size:13px;color:var(--mute);margin-top:4px;line-height:1.45}
+
+/* ---------- contact ---------- */
+.contact{margin:84px 0 0;padding:72px 0;border-top:1px solid var(--line);text-align:center}
+.contact .ico{margin:0 auto 18px;width:72px;height:72px}
+.contact h2{max-width:18ch;margin:0 auto}
+.contact p{color:var(--mute);margin:18px auto 30px;max-width:48ch}
+.mail{font-family:var(--serif);font-size:clamp(22px,4vw,40px);display:inline-block;border-bottom:2px solid var(--accent);padding-bottom:4px;word-break:break-all}
+.contact .cta{justify-content:center}
+.meta{margin-top:26px;display:flex;gap:22px;justify-content:center;flex-wrap:wrap;color:var(--mute);font-size:14px}
+footer{padding:26px 0 44px;color:var(--mute);font-size:13px;display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px;border-top:1px solid var(--line)}
+
+.reveal{opacity:0;transform:translateY(18px);transition:opacity .7s,transform .7s}
+.reveal.in{opacity:1;transform:none}
+@media(prefers-reduced-motion:reduce){.reveal{opacity:1;transform:none;transition:none}html{scroll-behavior:auto}}
+</style>
+</head>
+<body>
+
+<!-- ============ NAV ============ -->
+<header>
+  <div class="wrap">
+    <nav>
+      <a href="#top" class="logo">
+        <svg viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round" style="color:var(--accent)"><path d="M18 18l10 10M46 18L36 28M18 46l10-10M46 46L36 36"/><rect x="27" y="27" width="10" height="10" rx="3"/><g class="sp"><line x1="9" y1="18" x2="27" y2="18"/></g><g class="sp rev"><line x1="37" y1="18" x2="55" y2="18"/></g><g class="sp rev"><line x1="9" y1="46" x2="27" y2="46"/></g><g class="sp"><line x1="37" y1="46" x2="55" y2="46"/></g></svg>
+        begüm<span>.</span>
+      </a>
+      <div class="links" id="links">
+        <a href="#hedwig">hedwig</a>
+        <a href="#isler">işler</a>
+        <a href="#yarismalar">yarışmalar</a>
+        <a href="#deneyim">deneyim</a>
+        <a href="#yetenek">yetenekler</a>
+        <a href="#belgeler">belgeler</a>
+        <a href="#okul">okul</a>
+      </div>
+      <div class="right">
+        <button class="btn icon" id="theme" aria-label="Tema değiştir">◐</button>
+        <button class="btn icon" id="burger" aria-label="Menü">☰</button>
+        <a class="btn solid" href="#iletisim">merhaba de</a>
+      </div>
+    </nav>
+  </div>
+</header>
+
+<main id="top">
+<div class="wrap">
+
+  <!-- ============ HERO ============ -->
+  <div class="hero">
+    <div>
+      <div class="mono"><span class="dot"></span> Yeni mezun · İzmir · işe hazır</div>
+      <h1>Uçan sistemlerin <em>yazılımını</em> ve mekaniğini birlikte kuruyorum.</h1>
+      <p class="lead">Ben <b>Begüm</b>, Mekatronik Mühendisiyim. <b>Gömülü yazılım</b>, otonom İHA kontrolü ve görüntü işleme üzerine çalışıyorum. Tasarımı çizen, parçayı üreten, kartı kodlayan ve sahada test eden kişiyim. Kendi dronum <b>Hedwig</b>'i de sıfırdan tasarladım.</p>
+      <div class="cta">
+        <a class="btn solid" href="#hedwig">Hedwig'i gör ↓</a>
+        <a class="btn" href="#isler">İşlerime bak</a>
+        <a class="btn" href="assets/docs/Begum_Aydogan_CV.pdf" download>CV indir</a>
+        <a class="btn" href="https://github.com/aydgnbegmm" target="_blank" rel="noopener">GitHub</a>
+        <a class="btn" href="https://www.linkedin.com/in/begmaydgn" target="_blank" rel="noopener">LinkedIn</a>
+      </div>
+    </div>
+    <div class="pwrap">
+      <div class="portrait">
+        <span class="fallback">B</span>
+        <img src="assets/images/begum_hero.jpg" alt="Begüm Aydoğan Çiçin">
+      </div>
+      <div class="float-ico bob" aria-hidden="true">
+        <!-- hareketli dron -->
+        <svg class="ico" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M18 18l10 10M46 18L36 28M18 46l10-10M46 46L36 36"/><rect x="27" y="27" width="10" height="10" rx="3"/><circle cx="18" cy="18" r="2"/><circle cx="46" cy="18" r="2"/><circle cx="18" cy="46" r="2"/><circle cx="46" cy="46" r="2"/><g class="sp"><line x1="7" y1="18" x2="29" y2="18"/></g><g class="sp rev"><line x1="35" y1="18" x2="57" y2="18"/></g><g class="sp rev"><line x1="7" y1="46" x2="29" y2="46"/></g><g class="sp"><line x1="35" y1="46" x2="57" y2="46"/></g></svg>
+      </div>
+    </div>
+
+    <div class="stats">
+      <div class="stat reveal"><strong>3</strong><span>birincilik: TEKNOFEST 2023, METU VTOL 2023 ve 2025</span></div>
+      <div class="stat reveal"><strong>2</strong><span>kez TEKNOFEST Savaşan İHA finalisti (2024, 2025)</span></div>
+      <div class="stat reveal"><strong>557→34</strong><span>takım arasından finale kalan ekip, 2024</span></div>
+      <div class="stat reveal"><strong>76</strong><span>iş günü uzun dönem gömülü yazılım stajı</span></div>
+    </div>
+  </div>
+
+  <!-- ============ HEDWIG ============ -->
+  <section id="hedwig">
+    <div class="sec-head reveal">
+      <h2>Kendi dronum</h2>
+      <p>Hazır şasi yerine, ihtiyaca göre sıfırdan tasarlanmış bir test yatağı.</p>
+    </div>
+    <article class="hedwig reveal">
+      <div class="hhead">
+        <svg class="bigdrone" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M18 18l10 10M46 18L36 28M18 46l10-10M46 46L36 36"/><rect x="26" y="26" width="12" height="12" rx="3.5"/><path d="M29 32h6" stroke-width="1.4"/><circle cx="18" cy="18" r="2"/><circle cx="46" cy="18" r="2"/><circle cx="18" cy="46" r="2"/><circle cx="46" cy="46" r="2"/><g class="sp"><line x1="6" y1="18" x2="30" y2="18"/><line x1="18" y1="6" x2="18" y2="30"/></g><g class="sp rev"><line x1="34" y1="18" x2="58" y2="18"/><line x1="46" y1="6" x2="46" y2="30"/></g><g class="sp rev"><line x1="6" y1="46" x2="30" y2="46"/><line x1="18" y1="34" x2="18" y2="58"/></g><g class="sp"><line x1="34" y1="46" x2="58" y2="46"/><line x1="46" y1="34" x2="46" y2="58"/></g></svg>
+        <div>
+          <div class="tag"><span class="pill hot">2026</span><span class="pill">Bireysel Ar-Ge</span><span class="pill">FPV · Otonom</span></div>
+          <h3>Hedwig: Generative AI destekli otonom İHA platformu</h3>
+        </div>
+      </div>
+
+      <p><b>Neden yaptım?</b> Hazır ticari şasiler ve karbon FPV gövdeleri, onboard derin öğrenme modellerinin (Arducam ile YOLOv8 hedef takibi) yüksek hızlı manevralarda titreşimsiz çalışmasına ve ağır 4S 4200 mAh bataryanın simetrik ağırlık merkezinde taşınmasına izin vermiyordu.</p>
+      <p>Hem yapay zeka hedefleme algoritmalarını hem de FPV uçuş dinamiklerini sahada doğrulamak için açık mimarili bir test yatağı tasarladım. Düz karbon plakalar yerine, motor tork reaksiyonlarına ve aerodinamik yüklere göre <b>generative AI ve sonlu elemanlar (FEA) gerilme analiziyle</b> biyomimetik bir kafes geometrisi oluşturdum. 3D eklemeli imalatla üretilen yapı uçuş rezonansını sönümlerken toplam kütleyi 1,086 kg'da tuttu.</p>
+
+      <div class="hphotos">
+        <figure class="ph"><img src="assets/images/drone_cad.jpg" alt="Hedwig generative AI CAD tasarımı" loading="lazy" onerror="this.parentElement.remove()"><figcaption>Generative AI ve topoloji tasarımı (3D CAD render)</figcaption></figure>
+        <figure class="ph"><img src="assets/images/drone_soldering.jpg" alt="Hedwig atölye montajı ve lehimleme" loading="lazy" onerror="this.parentElement.remove()"><figcaption>Atölye montajı, lehimleme ve aviyonik entegrasyon</figcaption></figure>
+      </div>
+
+      <div class="hud">
+        <div><small>Ölçülen kütle</small><strong>1,086 kg</strong></div>
+        <div><small>İtki / ağırlık</small><strong>2,2 : 1</strong></div>
+        <div><small>Uçuş süresi</small><strong>16–20 dk</strong></div>
+        <div><small>Gövde</small><strong>Biyonik kafes</strong></div>
+      </div>
+
+      <div class="mods">
+        <div class="mod"><i>01</i><div><b>Uçuş kontrolcüsü</b><span>APM 2.8 ArduPilot Mega (Loiter, Waypoint, RTL)</span></div></div>
+        <div class="mod"><i>02</i><div><b>Seyrüsefer ve pusula</b><span>Ublox GPS, manyetik gürültüden izole kule</span></div></div>
+        <div class="mod"><i>03</i><div><b>Tahrik grubu</b><span>4× Sunnysky X2212 980KV, HQProp 7040 3 palli</span></div></div>
+        <div class="mod"><i>04</i><div><b>Hız kontrolcüleri</b><span>4× Hobbywing Flyfun Mini 30A (2–4S)</span></div></div>
+        <div class="mod"><i>05</i><div><b>Güç dağıtımı</b><span>Matek Mini Power Hub BEC (5V/12V, TVS korumalı)</span></div></div>
+        <div class="mod"><i>06</i><div><b>Batarya</b><span>Leopard Power 4200 mAh 4S 40C LiPo</span></div></div>
+        <div class="mod"><i>07</i><div><b>Alıcı ve telemetri</b><span>FrSky X8R 2,4 GHz 16CH SBUS, çift anten</span></div></div>
+        <div class="mod"><i>08</i><div><b>Görüntü ve görev</b><span>Arducam kamera modülü, YOLOv8 hedef takibi</span></div></div>
+      </div>
+    </article>
+  </section>
+
+  <!-- ============ İŞLER ============ -->
+  <section id="isler">
+    <div class="sec-head reveal">
+      <h2>İşler</h2>
+      <p>Kısa halleri. Ayrıntısını konuşmak isterim.</p>
+    </div>
+    <div class="grid">
+
+      <article class="card wide reveal">
+        <div class="ctop">
+          <div class="tag"><span class="pill hot">Staj</span><span class="pill">Ocak – Mayıs 2025</span><span class="pill">Ankara</span></div>
+          <!-- hedef tarama -->
+          <svg class="ico" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" aria-hidden="true"><path d="M10 22V12h10M44 12h10v10M54 42v10H44M20 52H10V42"/><circle cx="32" cy="32" r="9"/><circle cx="32" cy="32" r="2" fill="currentColor"/><g class="scan"><line x1="14" y1="32" x2="50" y2="32" stroke-width="1.8" opacity=".7"/></g></svg>
+        </div>
+        <h3>ASİSGUARD · Görüntü işleme tabanlı nesne takip sistemi</h3>
+        <p>Radxa Rock 5B ve Raspberry Pi 5 üzerinde <b>QR kod tespiti, mesafe tahmini, insan ve İHA algılama</b> yaptım. YOLOv8 ile özel model eğittim, QR okumayı Pyzbar'la, mesafe tahminini Optical Flow'la kurdum. Mamba F405 uçuş kontrol kartına UART üzerinden <b>MAVLink + DroneKit</b> ile bağlandım. Düşük FPS ve boot sorunlarını <b>ONNX ve NCNN</b> entegrasyonuyla çözdüm. Sonuç: İHA takibiyle drone kontrolü.</p>
+        <figure class="ph"><img src="assets/images/proj_asisguard.png" alt="ASİSGUARD test masası" loading="lazy" onerror="this.parentElement.remove()"><figcaption>Donanım test masası: Radxa Rock 5B ve Mamba F405 entegrasyonu</figcaption></figure>
+        <div class="stack">Python · OpenCV · YOLOv8 · GStreamer · Libcamera · Kalman · MAVLink · DroneKit · ONNX · NCNN</div>
+      </article>
+
+      <article class="card reveal">
+        <div class="ctop">
+          <div class="tag"><span class="pill hot">Araştırma</span><span class="pill">SAYZEK ATP 2025</span></div>
+          <!-- radar -->
+          <svg class="ico" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="32" cy="32" r="26"/><circle cx="32" cy="32" r="17" opacity=".6"/><circle cx="32" cy="32" r="8" opacity=".6"/><g class="sweep"><path d="M32 32L32 6" stroke-width="2.5"/><path d="M32 32L12 12A28 28 0 0 1 32 4Z" fill="currentColor" opacity=".18" stroke="none"/></g><circle class="blip" cx="42" cy="22" r="3" fill="currentColor" stroke="none" style="transform-box:fill-box;transform-origin:center"/></svg>
+        </div>
+        <h3>Otonom iniş: derin öğrenme + sensör füzyonu</h3>
+        <p>Gazebo'da hareketli bir gemiye <b>otonom iniş</b> problemini; derin öğrenme tabanlı görüntü işleme ve LiDAR–kamera füzyonuyla çözdüm. SSB davetiyle ASELSAN Gölbaşı'ndaki final etkinliğine katıldım ve <b>Selvi Technology staj ödülüne</b> layık görüldüm.</p>
+        <figure class="ph"><img src="assets/images/sayzek_event_photo.png" alt="SAYZEK final etkinliği" loading="lazy" onerror="this.parentElement.remove()"><figcaption>SAYZEK final etkinliği, ASELSAN Gölbaşı</figcaption></figure>
+        <div class="stack">Gazebo · ROS · LiDAR · Kamera · Derin Öğrenme</div>
+      </article>
+
+      <article class="card reveal">
+        <div class="ctop">
+          <div class="tag"><span class="pill hot">Takım Kaptanı</span><span class="pill">TEKNOFEST 2025</span></div>
+          <svg class="ico" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" aria-hidden="true"><circle cx="32" cy="32" r="22" opacity=".5"/><g class="sweep"><line x1="32" y1="32" x2="32" y2="10"/></g><circle cx="32" cy="32" r="3" fill="currentColor"/><path d="M32 4v8M32 52v8M4 32h8M52 32h8" opacity=".7"/></svg>
+        </div>
+        <h3>Tomris · İki eksenli hava savunma sistemi</h3>
+        <p>Hedef tespiti, takibi ve angajman yapan sistem; manuel/otonom kontrol, acil durdurma, ateşe yasak alan ve gerçek zamanlı takip sunuyor. <b>Kaptan olarak</b> ekip organizasyonunu, Kritik Tasarım Raporu'nu ve sistem mimarisini yürüttüm; atış mekanizması ve entegrasyonda da çalıştım.</p>
+        <figure class="ph"><img src="assets/images/proj_tomris.png" alt="Tomris hava savunma tareti" loading="lazy" onerror="this.parentElement.remove()"><figcaption>Tomris: iki eksenli pan-tilt taret</figcaption></figure>
+        <div class="stack">Sistem mimarisi · Mekanik · Entegrasyon · Teknik raporlama</div>
+      </article>
+
+      <article class="card reveal">
+        <div class="ctop">
+          <div class="tag"><span class="pill hot">Finalist</span><span class="pill">TEKNOFEST 2024</span><span class="pill">Bursa</span></div>
+          <!-- uçak -->
+          <svg class="ico" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" aria-hidden="true"><path d="M32 8l8 24 16 4-16 6-4 14-4-14-16-6 16-4z"/><circle cx="32" cy="32" r="3" fill="currentColor"/></svg>
+        </div>
+        <h3>TEKNOFEST 2024 · Savaşan İHA Finalistliği</h3>
+        <p>557 takım arasından <b>92,5 puanla</b> finale kalarak Bursa Yunuseli sahasında 10 tam görev uçuşu gerçekleştirdik. Modüler gövde tasarımı, uçuş öncesi kontroller ve yarışma saha hattı koordinasyonunu üstlendim.</p>
+        <figure class="ph"><img src="assets/images/savasan_2024_team.png" alt="Savaşan İHA 2024 ekibi" loading="lazy" onerror="this.parentElement.remove()"><figcaption>TEKNOFEST 2024 Savaşan İHA: Göktürk ekibi ve görev uçağımız (Bursa)</figcaption></figure>
+        <div class="stack">Savaşan İHA · Saha Uçuş Testi · Aviyonik Kalibrasyon · 10 Uçuş</div>
+      </article>
+
+      <article class="card reveal">
+        <div class="ctop">
+          <div class="tag"><span class="pill hot">Haberleşme</span><span class="pill">Savaşan İHA 2025</span></div>
+          <!-- sinyal -->
+          <svg class="ico" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" aria-hidden="true"><circle cx="32" cy="44" r="4" fill="currentColor"/><path class="pin" d="M22 36a14 14 0 0 1 20 0"/><path class="pin" d="M15 29a24 24 0 0 1 34 0"/><path class="pin" d="M8 22a34 34 0 0 1 48 0"/></svg>
+        </div>
+        <h3>Düşük gecikmeli yer istasyonu altyapısı</h3>
+        <p>Raspberry Pi 5 üzerinde <b>5 GHz kapalı devre Access Point</b> kurup statik IP ile ağ kararlılığını artırdım. Python TCP/IP soketleriyle otonom sistem verilerini serileştirip yer kontrol istasyonuna <b>gerçek zamanlı</b> aktardım.</p>
+        <figure class="ph"><img src="assets/images/proj_savasan.png" alt="Savaşan İHA 2025 ekibi" loading="lazy" onerror="this.parentElement.remove()"><figcaption>TEKNOFEST 2025 Savaşan İHA: Göktürk ekibi</figcaption></figure>
+        <div class="stack">Raspberry Pi 5 · Python · TCP/IP · Access Point</div>
+      </article>
+
+      <article class="card reveal">
+        <div class="ctop">
+          <div class="tag"><span class="pill hot">Kontrol</span><span class="pill">METU VTOL 2025</span></div>
+          <svg class="ico" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" aria-hidden="true"><circle cx="32" cy="32" r="22"/><circle cx="32" cy="32" r="12" opacity=".6"/><g class="bob"><path d="M32 10v14M32 40v14M10 32h14M40 32h14"/></g><circle cx="32" cy="32" r="2.5" fill="currentColor"/></svg>
+        </div>
+        <h3>Görsel tabanlı hedef takip kontrolü</h3>
+        <p>Kırmızı çember ve QR referanslarından gerçek zamanlı konum geri beslemesi alan <b>image-based control</b> yaklaşımıyla kararlı, hassas takip stabilizasyonu geliştirdim. Aviyonik entegrasyon ve uçuş yazılımı optimizasyonu da bu işin parçasıydı.</p>
+        <figure class="ph"><img src="assets/images/proj_vtol2025.png" alt="METU VTOL 2025" loading="lazy" onerror="this.parentElement.remove()"><figcaption>METU VTOL 2025: birincilik kazanan platformumuz</figcaption></figure>
+        <div class="stack">Aviyonik · Kontrol algoritmaları · Görüntü işleme</div>
+      </article>
+
+      <article class="card third reveal">
+        <div class="ctop">
+          <div class="tag"><span class="pill">TÜBİTAK 2209-A</span></div>
+          <!-- çip -->
+          <svg class="ico sm" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" aria-hidden="true"><rect x="18" y="18" width="28" height="28" rx="4"/><rect x="26" y="26" width="12" height="12" rx="2" class="tw"/><g><path class="pin" d="M26 18V8M38 18V8"/><path class="pin" d="M26 46v10M38 46v10"/><path class="pin" d="M18 26H8M18 38H8"/><path class="pin" d="M46 26h10M46 38h10"/></g></svg>
+        </div>
+        <h3>Uzaktan erişimli akıllı kilit</h3>
+        <p>Telefonu anahtara çeviren sistem: Raspberry Pi Pico, RFID/NFC okuyucu, tuş takımı, OLED ekran, Wi-Fi ve Bluetooth. Devre şemaları Fritzing'de, kart tasarımı için KiCad çalışıyorum.</p>
+        <figure class="ph"><img src="assets/images/proj_tubitak.png" alt="TÜBİTAK 2209-A akıllı kilit" loading="lazy" onerror="this.parentElement.remove()"><figcaption>Blok mimari ve donanım</figcaption></figure>
+      </article>
+
+      <article class="card third reveal">
+        <div class="ctop">
+          <div class="tag"><span class="pill">Mekanik</span></div>
+          <!-- dişli -->
+          <svg class="ico sm" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><g class="gear-rot"><circle cx="32" cy="32" r="19" stroke-width="7" stroke-dasharray="3.7 3.7"/><circle cx="32" cy="32" r="14" class="fill-bg"/><circle cx="32" cy="32" r="5"/></g></svg>
+        </div>
+        <h3>İHA tasarımı ve kalıp</h3>
+        <p>Hibrit, sabit ve döner kanat İHA'larını kanat, gövde, hareketli yüzey ve bağlantı parçalarına kadar <b>SolidWorks</b>'te tasarlıyorum. Üretim Ar-Ge'si için kalıp tasarımı yapıyorum; Fusion 360 ve AutoCAD de biliyorum.</p>
+        <figure class="ph"><img src="assets/images/proj_tulpar.png" alt="Tulpar hibrit VTOL İHA" loading="lazy" onerror="this.parentElement.remove()"><figcaption>Tulpar hibrit VTOL İHA</figcaption></figure>
+      </article>
+
+      <article class="card third reveal">
+        <div class="ctop">
+          <div class="tag"><span class="pill">Üretim</span></div>
+          <svg class="ico sm" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 20h40M16 20v-6h32v6"/><path d="M20 20v6h24v-6"/><g class="scan"><path d="M26 34h12l-6 14z" fill="currentColor" stroke="none"/></g><path d="M10 54h44" opacity=".5"/></svg>
+        </div>
+        <h3>Elyaf, köpük, 3D baskı</h3>
+        <p>Ahşap ve 3D baskı kalıplardan gövde üretimi, köpük üstü epoksi ve cam elyaf ile kanat–kuyruk üretimi. Bir buçuk yıldır aktif baskı alıyorum: ABS, PLA, PLA-LW; Cura ve Simplify3D.</p>
+        <figure class="ph"><img src="assets/images/proj_mfg.png" alt="PLA-LW baskı ve kompozit imalat" loading="lazy" onerror="this.parentElement.remove()"><figcaption>PLA-LW ve kompozit imalat</figcaption></figure>
+      </article>
+
+      <article class="card wide reveal">
+        <div class="ctop">
+          <div class="tag"><span class="pill hot">Staj</span><span class="pill">Temmuz – Ağustos 2024</span><span class="pill">Ankara</span></div>
+          <svg class="ico" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" aria-hidden="true"><circle cx="16" cy="48" r="5"/><path d="M16 43V28"/><g class="bob"><path d="M16 28h20"/><circle cx="36" cy="28" r="3.5"/><path d="M36 28l12-12"/><path d="M44 12l8 8M44 12l-4 10M52 20l-10 2" stroke-width="2"/></g></svg>
+        </div>
+        <h3>Z-System · SCARA robotla İHA yakalama</h3>
+        <p>Endüstriyel İHA ve yer kontrol istasyonu çalışmalarına katıldım. SCARA robot üzerine araştırma yaptım, <b>3D modelledim, kinematik ve dinamik hesapları</b> çıkarıp sonuçları Simulink'e aktardım. ARM tabanlı yer kontrol istasyonu yazılımındaki hataları giderdim, 3D yazıcı kullanımı ve tamiratında deneyim kazandım.</p>
+        <figure class="ph"><img src="assets/images/proj_scara.png" alt="SCARA robot İHA yakalama CAD" loading="lazy" onerror="this.parentElement.remove()"><figcaption>SCARA robotik İHA yakalama mekanizması, CAD modeli</figcaption></figure>
+        <div class="stack">SolidWorks · MATLAB/Simulink · Kinematik · ARM · 3D baskı</div>
+      </article>
+
+    </div>
+  </section>
+
+  <!-- ============ YARIŞMALAR ============ -->
+  <section id="yarismalar">
+    <div class="sec-head reveal">
+      <h2>Yarışmalar</h2>
+      <p>Göktürk İHA Topluluğu ile sahada geçen yıllar.</p>
+    </div>
+    <div class="reveal" id="comps"></div>
+  </section>
+
+  <!-- ============ DENEYİM ============ -->
+  <section id="deneyim">
+    <div class="sec-head reveal">
+      <h2>Hepsi, sırayla</h2>
+      <p>En yeni en üstte.</p>
+    </div>
+    <ul class="tl reveal">
+      <li><span class="when">2026<br>Kişisel Ar-Ge</span><div><h3>Hedwig<span class="where">Otonom FPV ve yapay zeka test platformu</span></h3><p>Generative AI ile tasarlanmış biyonik kafes gövde, APM 2.8 tabanlı uçuş sistemi, YOLOv8 hedef takibi.</p></div></li>
+      <li><span class="when">Ara 2022 – Mar 2026<br>Konya</span><div><h3>Göktürk İHA Topluluğu<span class="where">Kontrol ve Yazılım · Mekanik ve Ar-Ge sorumlusu</span></h3><p>İHA tasarım, geliştirme ve test faaliyetlerinin koordinasyonu; ulusal yarışmalarda aktif görev, iki yarışmada takım kaptanlığı.</p></div></li>
+      <li><span class="when">Kas 2024 – Haz 2025<br>SAYZEK</span><div><h3>Akademik Tez Programı<span class="where">Araştırmacı</span></h3><p>Otonom İHA iniş sistemleri, görüntü işleme ve sensör füzyonu. Danışman: Dr. Alperen Eroğlu.</p></div></li>
+      <li><span class="when">Oca – May 2025<br>Ankara</span><div><h3>ASİSGUARD<span class="where">Uzun dönem gömülü yazılım stajyeri</span></h3><p>Uçuş kontrol kartı haberleşmesi, otonom yönlendirme, YOLO/OpenCV ile hedef takibi, gömülü Linux üzerinde Python ve C.</p></div></li>
+      <li><span class="when">Tem – Ağu 2024<br>Ankara</span><div><h3>Z-System Havacılık ve Uzay Sanayii<span class="where">Ar-Ge stajyeri</span></h3><p>Yer kontrol istasyonu yazılımında hata giderme, MATLAB/Simulink ile modelleme, SCARA robotla İHA yakalama projesi.</p></div></li>
+      <li><span class="when">Mar 2023 – Eyl 2025</span><div><h3>TÜBİTAK 2209-A<span class="where">Araştırmacı</span></h3><p>Uzaktan erişimli akıllı kilit sisteminin tasarımı ve üretimi.</p></div></li>
+    </ul>
+  </section>
+
+  <!-- ============ YETENEKLER ============ -->
+  <section id="yetenek">
+    <div class="sec-head reveal">
+      <h2>Araç çantam</h2>
+      <p>Her gün kullandıklarım.</p>
+    </div>
+    <div class="skills reveal">
+      <div><h4>Yazılım</h4><ul><li>Python</li><li>C / C++</li><li>Gömülü Linux</li><li>RTOS</li><li>ROS</li><li>MATLAB / Simulink</li></ul></div>
+      <div><h4>Algı &amp; Kontrol</h4><ul><li>OpenCV</li><li>YOLOv8</li><li>Hedef takibi</li><li>Sensör füzyonu</li><li>PID</li><li>MAVLink</li><li>Uçuş kontrol kartları</li><li>ONNX / NCNN</li></ul></div>
+      <div><h4>Donanım &amp; Tasarım</h4><ul><li>Raspberry Pi 5</li><li>Radxa Rock 5B</li><li>Arduino</li><li>SolidWorks</li><li>Fusion 360</li><li>Gazebo</li><li>3D yazıcı</li><li>KiCad</li></ul></div>
+    </div>
+  </section>
+
+  <!-- ============ BELGELER ============ -->
+  <section id="belgeler">
+    <div class="sec-head reveal">
+      <h2>Belgeler</h2>
+      <p>Resmi belge ve sertifikalar.</p>
+    </div>
+    <div class="certs reveal">
+      <div class="cert"><div class="im"><img src="assets/images/cert_metu_2023.png" alt="METU VTOL 2023 belgesi" loading="lazy" onerror="this.closest('.cert').remove()"></div><div class="t"><h4>METU VTOL 2023 · Birincilik</h4><p>ODTÜ Havacılık ve Uzay Mühendisliği resmi yazısı, takım üyeleri listesiyle.</p></div></div>
+      <div class="cert"><div class="im"><img src="assets/images/cert_teknofest_2023.png" alt="TEKNOFEST 2023 belgesi" loading="lazy" onerror="this.closest('.cert').remove()"></div><div class="t"><h4>TEKNOFEST 2023 · Girişim Yarışması</h4><p>Uzay, Havacılık ve Savunma Teknolojileri kategorisi birincilik belgesi.</p></div></div>
+      <div class="cert"><div class="im"><img src="assets/images/cert_teknofest_2024.png" alt="TEKNOFEST 2024 Savaşan İHA belgesi" loading="lazy" onerror="this.closest('.cert').remove()"></div><div class="t"><h4>TEKNOFEST 2024 · Savaşan İHA</h4><p>Finalist katılım belgesi ve başarı sertifikası.</p></div></div>
+      <div class="cert"><div class="im"><img src="assets/images/cert_iac_2023.png" alt="IAC Bakü 2023 kaydı" loading="lazy" onerror="this.closest('.cert').remove()"></div><div class="t"><h4>IAC Bakü 2023</h4><p>74. Uluslararası Uzay Kongresi kayıt onayı ve katılım belgesi.</p></div></div>
+      <div class="cert"><div class="im"><img src="assets/images/sayzek_event_photo.png" alt="SAYZEK 2025 ASELSAN Katılımı" loading="lazy" onerror="this.closest('.cert').remove()"></div><div class="t"><h4>SAYZEK 2025 · ASELSAN Gölbaşı</h4><p>Savunma Sanayii Başkanlığı davetiyle final etkinliği katılımı ve staj ödülü.</p></div></div>
+    </div>
+  </section>
+
+  <!-- ============ OKUL ============ -->
+  <section id="okul">
+    <div class="sec-head reveal"><h2>Okul</h2></div>
+    <div class="card wide reveal">
+      <div class="tag"><span class="pill">Eylül 2021 – Haziran 2026</span><span class="pill">Konya</span><span class="pill">GPA 2,71 / 4,00</span></div>
+      <h3>Necmettin Erbakan Üniversitesi · Mekatronik Mühendisliği (Lisans, mezun)</h3>
+      <p>Otomatik kontrol, yapay zeka, sinyal ve görüntü işleme, gömülü sistemler, kontrol sistemleri ve robotik derslerini aldım. Diller: Türkçe (ana dil), İngilizce (B1).</p>
+    </div>
+  </section>
+
+  <!-- ============ İLETİŞİM ============ -->
+  <div class="contact" id="iletisim">
+    <svg class="ico" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><g class="bob"><path d="M18 18l10 10M46 18L36 28M18 46l10-10M46 46L36 36"/><rect x="27" y="27" width="10" height="10" rx="3"/><g class="sp"><line x1="7" y1="18" x2="29" y2="18"/></g><g class="sp rev"><line x1="35" y1="18" x2="57" y2="18"/></g><g class="sp rev"><line x1="7" y1="46" x2="29" y2="46"/></g><g class="sp"><line x1="35" y1="46" x2="57" y2="46"/></g></g></svg>
+    <p class="mono reveal" style="margin:0 0 14px">Merhaba de</p>
+    <h2 class="reveal">Gömülü ya da otonom sistemlerde Ar-Ge mi yapıyorsunuz?</h2>
+    <p class="reveal">Yeni teknolojiler üreten bir ekipte Ar-Ge süreçlerine değer katmak istiyorum. En hızlı yanıt e-postayla gelir; iki satır yeter.</p>
+    <a class="mail reveal" href="mailto:aydgnbegm@gmail.com">aydgnbegm@gmail.com</a>
+    <div class="cta reveal" style="margin-top:30px">
+      <button class="btn solid" id="copy">E-postayı kopyala</button>
+      <a class="btn" href="assets/docs/Begum_Aydogan_CV.pdf" download>CV (PDF)</a>
+      <a class="btn" href="assets/docs/Begum_Aydogan_Portfolyo_Sunumu.pdf" download>Portfolyo sunumu (PDF)</a>
+      <a class="btn" href="https://www.linkedin.com/in/begmaydgn" target="_blank" rel="noopener">LinkedIn</a>
+      <a class="btn" href="https://github.com/aydgnbegmm" target="_blank" rel="noopener">GitHub</a>
+    </div>
+    <div class="meta reveal"><span>+90 545 245 38 78</span><span>İzmir / Buca</span></div>
+  </div>
+
+  <footer>
+    <span>© 2026 Begüm Aydoğan Çiçin</span>
+    <a href="#top">Başa dön ↑</a>
+  </footer>
+
+</div>
+</main>
+
+<script>
+// yarışma listesi
+const trophy='<svg viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 12h24v14a12 12 0 0 1-24 0z"/><path d="M20 16h-8c0 8 3 12 9 13M44 16h8c0 8-3 12-9 13M32 38v10M22 52h20"/><path class="tw" d="M32 17l2 5 5 2-5 2-2 5-2-5-5-2 5-2z" fill="currentColor" stroke="none"/></svg>';
+const flag='<svg viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M16 56V10"/><path class="tw" d="M16 12h30l-6 10 6 10H16z" fill="currentColor" stroke="none"/></svg>';
+const comps=[
+ ['2025','METU VTOL','Boeing sponsorluğunda, 9. kez düzenlenen yarışma. İkinci katılımım.','1.\'lik',trophy],
+ ['2025','TEKNOFEST Savaşan İHA','Takım kaptanı olarak finalde yarıştık; haberleşme altyapısını kurdum.','Finalist',flag],
+ ['2025','TEKNOFEST Hava Savunma Sistemleri','ASELSAN yürütücülüğünde; video kabiliyet aşamasına kadar ilerledik. Takım kaptanıydım.','Tomris',flag],
+ ['2024','TEKNOFEST Savaşan İHA','557 takım arasından finale kalan 34 takımdan biri olduk; rapor aşamasında 92,5 puan, yarışmada 10 uçuş.','Finalist',flag],
+ ['2023','METU VTOL','Hibrit İHA “Tulpar” ile. Mekanik aksamların tasarımı ve kontrolünden sorumluydum.','1.\'lik',trophy],
+ ['2023','TEKNOFEST Girişimcilik · Uzay ve Havacılık','“Tulpar” ile En İyi Girişim Ödülü.','1.\'lik',trophy],
+ ['2023','IAC Bakü · 74. Uluslararası Uzay Kongresi','Ekibi temsilen katıldım.','Katılımcı',flag]
+];
+document.getElementById('comps').innerHTML=comps.map(c=>`<div class="comp"><span class="y">${c[0]}</span><div><h3>${c[1]}</h3><p>${c[2]}</p></div><span class="res">${c[4]}${c[3]}</span></div>`).join('');
+
+// tema
+const root=document.documentElement;
+try{const t=localStorage.getItem('theme');if(t)root.dataset.theme=t}catch(e){}
+document.getElementById('theme').addEventListener('click',()=>{
+  const dark=getComputedStyle(root).getPropertyValue('--bg').trim()==='#0e1012';
+  const next=dark?'light':'dark';
+  root.dataset.theme=next;
+  try{localStorage.setItem('theme',next)}catch(e){}
+});
+// mobil menü
+const links=document.getElementById('links');
+document.getElementById('burger').addEventListener('click',()=>links.classList.toggle('open'));
+links.addEventListener('click',e=>{if(e.target.tagName==='A')links.classList.remove('open')});
+// e-posta kopyala
+document.getElementById('copy').addEventListener('click',e=>{
+  const b=e.currentTarget;
+  navigator.clipboard.writeText('aydgnbegm@gmail.com').then(()=>{b.textContent='Kopyalandı ✓';setTimeout(()=>b.textContent='E-postayı kopyala',1800)});
+});
+// görünür olunca belir
+const io=new IntersectionObserver(es=>es.forEach(x=>{if(x.isIntersecting){x.target.classList.add('in');io.unobserve(x.target)}}),{threshold:.1});
+document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+</script>
+</body>
+</html>
