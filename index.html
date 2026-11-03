@@ -130,6 +130,17 @@ h3{font-family:var(--serif);font-weight:500;font-size:24px;line-height:1.2}
 .hud strong{font-family:var(--serif);font-weight:500;font-size:20px;color:var(--accent)}
 @media(max-width:700px){.hud{grid-template-columns:1fr 1fr}.hud div:nth-child(3){border-left:0}.hud div:nth-child(n+3){border-top:1px solid var(--line)}}
 
+/* Hedwig Aşamalı Mühendislik Süreci */
+.phases{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:16px 0 10px}
+@media(max-width:760px){.phases{grid-template-columns:1fr}}
+.phase{background:var(--bg);border:1px solid var(--line);border-radius:12px;padding:14px 16px;display:flex;gap:12px;align-items:flex-start}
+.phase.full{grid-column:1/-1}
+.phase b{display:block;font-size:15px;font-weight:600;color:var(--ink)}
+.phase span{display:block;font-size:13.5px;color:var(--mute);line-height:1.5;margin-top:4px}
+.phase i{font-style:normal;font-family:var(--mono);font-size:11px;color:var(--accent);font-weight:600;margin-top:2px;letter-spacing:.06em}
+.phase.active{border-color:var(--accent);background:color-mix(in srgb,var(--accent) 5%,var(--bg))}
+.phase.active i{background:var(--accent);color:var(--accent-ink);padding:2px 6px;border-radius:4px}
+
 /* ---------- competitions ---------- */
 .comp{display:grid;grid-template-columns:130px 1fr auto;gap:20px;padding:22px 0;border-top:1px solid var(--line);align-items:baseline}
 .comp:last-child{border-bottom:1px solid var(--line)}
@@ -208,7 +219,7 @@ footer{padding:26px 0 44px;color:var(--mute);font-size:13px;display:flex;justify
     <div class="hero-content">
       <div class="mono"><span class="dot"></span> Yeni mezun · İzmir · işe hazır</div>
       <h1>Uçan sistemlerin <em>yazılımını</em> ve mekaniğini birlikte kuruyorum.</h1>
-      <p class="lead">Ben <b>Begüm</b>, Mekatronik Mühendisiyim. <b>Gömülü yazılım</b>, otonom İHA kontrolü ve görüntü işleme üzerine çalışıyorum. Tasarımı çizen, parçayı üreten, kartı kodlayan ve sahada test eden mühendisim. Kendi bireysel projem olan <b>Hedwig</b>'i; Autodesk Fusion 360'ın organik tasarım (Generative Design &amp; T-Splines) kabiliyetleriyle optimize edilmiş 3D baskı PLA gövdesi, onboard görüntü işleme ve dinamik engellerden kaçınma hedefiyle sıfırdan geliştirdim.</p>
+      <p class="lead">Ben <b>Begüm</b>, Mekatronik Mühendisiyim. <b>Gömülü yazılım</b>, otonom İHA kontrolü ve görüntü işleme üzerine çalışıyorum. Tasarımı çizen, aviyonik elektroniği seçip entegre eden, test düzeneğinde kalibre eden ve sahada uçuran mühendisim. Bireysel projem <b>Hedwig</b>'i; Fusion 360 organik tasarımı, itki testleri ve başarılı uçuş doğrulamalarının ardından şu anda <b>MATLAB / Simulink</b> üzerinde ileri kontrol algoritmalarıyla geliştirmeye devam ediyorum.</p>
       <div class="cta">
         <a class="btn solid" href="#isler">Projelerime bak ↓</a>
         <a class="btn" href="assets/docs/Begum_Aydogan_CV.pdf" download>CV (PDF) indir</a>
@@ -234,37 +245,79 @@ footer{padding:26px 0 44px;color:var(--mute);font-size:13px;display:flex;justify
     </div>
     <div class="grid">
 
-      <!-- HEDWIG (FUSION 360 ORGANIK TASARIM İLE TEKNİK DERİNLİK) -->
+      <!-- HEDWIG (UÇTAN UCA MEKATRONİK, AŞAMALI SİSTEM VE AKTİF MATLAB/SIMULINK GELİŞTİRME) -->
       <article class="card wide reveal">
         <div class="ctop">
           <div class="tag">
-            <span class="pill hot">2026</span>
-            <span class="pill">Bireysel Ar-Ge</span>
+            <span class="pill hot">Aktif Ar-Ge</span>
+            <span class="pill">Bireysel Proje</span>
+            <span class="pill">Uçtan Uca Mekatronik</span>
+            <span class="pill">MATLAB &amp; Simulink</span>
             <span class="pill">Autodesk Fusion 360</span>
-            <span class="pill">Generative &amp; Organic Design</span>
-            <span class="pill">3D Eklemeli İmalat</span>
           </div>
           <!-- dron ikonu -->
           <svg class="ico" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" aria-hidden="true"><path d="M18 18l10 10M46 18L36 28M18 46l10-10M46 46L36 36"/><rect x="27" y="27" width="10" height="10" rx="3"/><circle cx="18" cy="18" r="2"/><circle cx="46" cy="18" r="2"/><circle cx="18" cy="46" r="2"/><circle cx="46" cy="46" r="2"/><g class="sp"><line x1="7" y1="18" x2="29" y2="18"/></g><g class="sp rev"><line x1="35" y1="18" x2="57" y2="18"/></g><g class="sp rev"><line x1="7" y1="46" x2="29" y2="46"/></g><g class="sp"><line x1="35" y1="46" x2="57" y2="46"/></g></svg>
         </div>
-        <h3>Hedwig · Fusion 360 Organik Tasarımlı Otonom Görüntü İşleme ve Engellerden Kaçınma Dronu</h3>
-        <p>Görüntü işleme tabanlı hedef tespiti ve dinamik engellerden kaçınma algoritmalarını sahada doğrulamak amacıyla geliştirdiğim <b>kendi bireysel Ar-Ge projem</b>.</p>
-        <p>Gövde geometrisini, geleneksel düz karbon şasiler yerine <b>Autodesk Fusion 360'ın Generative Design ve T-Spline organik form modelleme</b> araçlarıyla sıfırdan tasarladım. 4 motorun maksimum itki ve tork reaksiyonları, dinamik eğilme momentleri ve iniş darbeleri sonlu elemanlar sınır şartları olarak tanımlandı; algoritmanın ürettiği biyonik yük yolları (load paths) sayesinde gerilme yoğunlaşmaları (stress concentrations) sönümlendi. <b>3D eklemeli imalat (Additive Manufacturing)</b> kısıtlarına göre dilimlenip yüksek mukavemetli PLA ile basılan gövde mimarisi, onboard derin öğrenme modellerinin (Arducam + YOLOv8) ve otonom manevraların <b>titreşimsiz optik eksen</b> ile kararlı çalışmasını sağlar.</p>
-        
+        <h3>Hedwig · Uçtan Uca Otonom Görüntü İşleme ve Engellerden Kaçınma İHA Platformu</h3>
+        <p>Görüntü işleme tabanlı hedef tespiti ve dinamik engellerden kaçınma algoritmalarını sahada doğrulamak amacıyla geliştirdiğim <b>bireysel mekatronik Ar-Ge projem</b>. Proje; salt bir mekanik gövde modellemesinin ötesinde, <b>uçtan uca tasarımdan aviyonik seçimine, test düzeneğindeki statik itki ölçümlerinden başarılı saha uçuşlarına ve MATLAB/Simulink tabanlı ileri kontrolcü optimizasyonuna</b> uzanan eksiksiz bir sistem mühendisliği sürecidir.</p>
+
         <!-- Hedwig 3B Organik Tasarım Stüdyo Renderı -->
         <figure class="ph">
           <img src="assets/images/hedwig_render.jpg?v=20261103" alt="Hedwig — Autodesk Fusion 360 Generative & Organik Tasarım PLA Gövde Dronu" loading="lazy">
-          <figcaption>Autodesk Fusion 360 Generative &amp; T-Spline organik form modelleme · 3D baskı PLA gövde mimarisi (3B Render)</figcaption>
+          <figcaption>Autodesk Fusion 360 Generative &amp; T-Spline organik modelleme · 3D eklemeli PLA imalat (3B Render)</figcaption>
         </figure>
 
         <div class="hud">
           <div><small>CAD &amp; Topoloji</small><strong>Fusion 360 Organic</strong></div>
-          <div><small>İmalat Yöntemi</small><strong>3D Eklemeli İmalat (PLA)</strong></div>
+          <div><small>Doğrulama</small><strong>İtki &amp; Uçuş Testleri Başarılı</strong></div>
           <div><small>Uçuş Ağırlığı</small><strong>1,086 kg (Hazır)</strong></div>
-          <div><small>İtki / Ağırlık</small><strong>2,2 : 1 Dinamik Güç</strong></div>
+          <div><small>Aktif Süreç</small><strong>MATLAB / Simulink Devam Ediyor</strong></div>
         </div>
 
-        <div class="stack">Autodesk Fusion 360 · Generative &amp; T-Splines Design · 3D Baskı PLA · APM 2.8 · YOLOv8 · Görüntü İşleme &amp; Kaçınma · Python · MAVLink</div>
+        <!-- Aşamalı Teknik Mühendislik Süreci -->
+        <div class="phases">
+          <div class="phase">
+            <i>AŞAMA 01</i>
+            <div>
+              <b>Uçtan Uca Tasarım &amp; 3D Eklemeli İmalat</b>
+              <span>Autodesk Fusion 360'ın Generative Design ve T-Spline organik form araçlarıyla; motor tork reaksiyonları ve dinamik yüklere göre biyonik kafes geometrisi modellendi. 3D eklemeli imalatla (PLA) basılarak gerilme yoğunlaşmaları sönümlendi ve yüksek rijitlik elde edildi.</span>
+            </div>
+          </div>
+
+          <div class="phase">
+            <i>AŞAMA 02</i>
+            <div>
+              <b>Elektronik &amp; Aviyonik Bileşen Seçimi</b>
+              <span>İtki/ağırlık dinamiklerine göre Sunnysky X2212 980KV motorlar, 30A ESC sürücüler, APM 2.8 kontrolcü, manyetik kule üzeri izole Ublox GPS/pusula, 4S 4200 mAh LiPo ve Matek PDB güç dağıtım mimarisi seçildi; lehimleme ve kablolama entegrasyonu tamamlandı.</span>
+            </div>
+          </div>
+
+          <div class="phase">
+            <i>AŞAMA 03</i>
+            <div>
+              <b>Statik İtki Testleri &amp; Kalibrasyonlar</b>
+              <span>Özel test standında motor-pervane itki eğrileri (thrust curve), akım/gerilim tüketimi ve titreşim spektrumları ölçüldü. ESC gaz yolu kalibrasyonları, IMU titreşim filtreleri ve 6 eksenli sensör kalibrasyonları başarıyla doğrulanarak uçuşa hazırlandı.</span>
+            </div>
+          </div>
+
+          <div class="phase">
+            <i>AŞAMA 04</i>
+            <div>
+              <b>Başarılı Saha Uçuş Testleri &amp; Görev Doğrulama</b>
+              <span>Açık saha testlerinde stabil kalkış, hover (Loiter), Waypoint otonom seyrüsefer ve RTL (eve dönüş) uçuşları sıfır kaza ile başarıyla icra edildi. Arducam ve YOLOv8 hedefleme hattının yüksek manevra hızlarında dahi titreşimsiz optik eksen kararlılığı sahada doğrulandı.</span>
+            </div>
+          </div>
+
+          <div class="phase full active">
+            <i>AŞAMA 05 · AKTİF AR-GE</i>
+            <div>
+              <b>Geliştirme Süreci: MATLAB &amp; Simulink ile İleri Kontrolcü Modelleme</b>
+              <span>Platform aktif olarak geliştirilmeye devam etmektedir. MATLAB &amp; Simulink ortamında sistemin 6 serbestlik dereceli (6-DOF) doğrusal olmayan uçuş dinamikleri ve eylemsizlik momentleri modellenmekte; durum uzayı (state-space) kontrolcüleri ve dinamik engellerden kaçınma algoritmalarının simülasyon tabanlı optimizasyonu yürütülmektedir.</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="stack">MATLAB / Simulink · Autodesk Fusion 360 · Generative &amp; T-Splines · APM 2.8 · Statik İtki Testleri · YOLOv8 · Arducam · Python · MAVLink</div>
       </article>
 
       <!-- ASİSGUARD -->
@@ -402,7 +455,7 @@ footer{padding:26px 0 44px;color:var(--mute);font-size:13px;display:flex;justify
       <p>Kronolojik mühendislik ve staj yolculuğum.</p>
     </div>
     <ul class="tl reveal">
-      <li><span class="when">2026<br>Kişisel Ar-Ge</span><div><h3>Hedwig<span class="where">Görüntü İşleme &amp; Engellerden Kaçınma Dronu</span></h3><p>Autodesk Fusion 360 Generative &amp; T-Splines organik form modelleme, 3D eklemeli imalat (PLA), APM 2.8 otonom seyrüsefer ve YOLOv8 hedefleme.</p></div></li>
+      <li><span class="when">2026 · Aktif<br>Kişisel Ar-Ge</span><div><h3>Hedwig<span class="where">Uçtan Uca Otonom İHA &amp; Algoritma Platformu</span></h3><p>Fusion 360 organik tasarım, aviyonik mimari, statik itki &amp; başarılı saha uçuşları. MATLAB / Simulink ile 6-DOF dinamik modelleme ve kontrolcü optimizasyonu devam etmektedir.</p></div></li>
       <li><span class="when">Ara 2022 – Mar 2026<br>Konya</span><div><h3>Göktürk İHA Topluluğu<span class="where">Kontrol ve Yazılım · Mekanik ve Ar-Ge sorumlusu</span></h3><p>İHA tasarım, geliştirme ve test faaliyetlerinin koordinasyonu; ulusal yarışmalarda aktif görev, iki yarışmada takım kaptanlığı.</p></div></li>
       <li><span class="when">Kas 2024 – Haz 2025<br>SAYZEK</span><div><h3>Akademik Tez Programı<span class="where">Araştırmacı</span></h3><p>Otonom İHA iniş sistemleri, görüntü işleme ve sensör füzyonu. Danışman: Dr. Alperen Eroğlu.</p></div></li>
       <li><span class="when">Oca – May 2025<br>Ankara</span><div><h3>ASİSGUARD<span class="where">Uzun dönem gömülü yazılım stajyeri</span></h3><p>Uçuş kontrol kartı haberleşmesi, otonom yönlendirme, YOLO/OpenCV ile hedef takibi, gömülü Linux üzerinde Python ve C.</p></div></li>
